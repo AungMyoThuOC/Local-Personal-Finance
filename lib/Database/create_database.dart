@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:personal_finance/Database/create_acc_map.dart';
 import 'package:personal_finance/Database/record_map.dart';
+import 'package:personal_finance/Database/remaining_map.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CreateDatabase {
@@ -47,7 +48,7 @@ class CreateDatabase {
       "CREATE TABLE $RECORD_OUT_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_price INTEGER, record_cat TEXT, record_remark TEXT, checkZero TEXT)",
     );
     await db.execute(
-        "CREATE TABLE $RECORD_SAV_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_remark TEXT, record_price INTEGER, checkZero TEXT)");
+        "CREATE TABLE $RECORD_SAV_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_remark TEXT, record_price INTEGER, record_remaining INTEGER, checkZero TEXT)");
     print("CREATE TBL>>");
   }
 
@@ -108,6 +109,15 @@ class CreateDatabase {
       createRecordSav.toMap(),
     );
     return createRecordSav;
+  }
+
+  Future<RemainingMap> createRecordSAV(RemainingMap createRecordSAV) async {
+    Database? _db = await instance.db;
+    createRecordSAV.record_remaining = await _db?.insert(
+      RECORD_SAV_TABLE,
+      createRecordSAV.toMap(),
+    );
+    return createRecordSAV;
   }
 
   Future<int> editRecord(RecordMap record, int id) async {

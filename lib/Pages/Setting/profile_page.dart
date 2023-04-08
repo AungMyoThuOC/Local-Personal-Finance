@@ -1,13 +1,16 @@
 // ignore_for_file: sized_box_for_whitespace, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:personal_finance/Database/create_database.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:personal_finance/Pages/Setting/language.dart';
 import 'package:personal_finance/common.dart';
 
 class ProfilePage extends StatefulWidget {
+  int id;
   List list;
   ProfilePage({
     Key? key,
+    required this.id,
     required this.list,
   }) : super(key: key);
 
@@ -16,30 +19,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final _db = CreateDatabase.instance;
-  List getIndexDashboardList = [];
-  bool check = false;
-
-  _getData() {
-    getIndexDashboardList = widget.list;
-  }
-
-  @override
-  void initState() {
-    _getData();
-    Future.delayed(const Duration(seconds: 1)).then((value) {
-      setState(() {
-        check = true;
-      });
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.white,
         title: const Text(
           "Setting",
           style: TextStyle(
@@ -62,49 +49,121 @@ class _ProfilePageState extends State<ProfilePage> {
                     blurRadius: 3,
                   ),
                 ],
-                // gradient: LinearGradient(
-                //   colors: Colors.white,
-                //   begin: Alignment.bottomCenter,
-                //   end: Alignment.topCenter,
-                //   stops: const [0.0, 2.0],
-                //   tileMode: TileMode.clamp,
-                // ),
               ),
             ),
             const SizedBox(
               height: 30,
             ),
-            Column(
-              children: const [
-                // Image.asset(
-                //   "assets/images/budget.png",
-                //   height: 100,
-                //   fit: BoxFit.contain,
-                // ),
-                SizedBox(
-                  height: 13,
-                ),
-                Text(
-                  "Personal Finance",
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Color(0xff5E65DE),
-                  ),
-                ),
-                Text(
-                  "v 0.1.2",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
+            // Column(
+            //   children: [
+            //     getAccountList.isEmpty
+            //         ? Container()
+            //         : Row(
+            //             children: [
+            //               getAccountList[0]["image"] == ""
+            //                   ? CircleAvatar(
+            //                       backgroundImage: const AssetImage(
+            //                         "images/prson.jpg",
+            //                       ),
+            //                       backgroundColor: Colors.grey[350],
+            //                     )
+            //                   : CircleAvatar(
+            //                       backgroundImage: FileImage(
+            //                         File(
+            //                           getAccountList[0]["image"],
+            //                         ),
+            //                       ),
+            //                     ),
+            //               const SizedBox(
+            //                 width: 10,
+            //               ),
+            //               Text(
+            //                 "${getAccountList[0]['name']}",
+            //                 style: TextStyle(
+            //                   fontWeight: FontWeight.bold,
+            //                   color: Colors.black,
+            //                   fontFamily: ubuntuFamily,
+            //                   fontSize: 20,
+            //                 ),
+            //               )
+            //             ],
+            //           )
+            //   ],
+            // ),
+            // Column(
+            //   children: const [
+            //     // Image.asset(
+            //     //   "assets/images/budget.png",
+            //     //   height: 100,
+            //     //   fit: BoxFit.contain,
+            //     // ),
+            //     SizedBox(
+            //       height: 13,
+            //     ),
+            //     Text(
+            //       "Personal Finance",
+            //       style: TextStyle(
+            //         fontSize: 25,
+            //         color: Color(0xff5E65DE),
+            //       ),
+            //     ),
+            //     Text(
+            //       "v 0.1.2",
+            //       style: TextStyle(
+            //         fontSize: 13,
+            //         fontWeight: FontWeight.bold,
 
-                    //
-                  ),
-                ),
-                SizedBox(height: 13),
-              ],
-            ),
+            //         //
+            //       ),
+            //     ),
+            //     SizedBox(height: 13),
+            //   ],
+            // ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: const LanguagePage(),
+                        ),
+                      );
+                      setState(() {
+                        
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.g_translate_outlined,
+                          size: 21,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          "Language",
+                          style: TextStyle(
+                            fontSize: 21,
+                            fontFamily: ubuntuFamily,
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   InkWell(
@@ -115,10 +174,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           Icons.restore_outlined,
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 20,
                         ),
                         Text(
-                          "Rsset Data",
+                          "Reset Data",
                           style: TextStyle(
                             fontSize: 21,
                             fontFamily: ubuntuFamily,
@@ -127,6 +186,70 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
+                ],
+              ),
+            ),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.logout_outlined,
+                          size: 21,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          "Logout",
+                          style: TextStyle(
+                            fontSize: 21,
+                            fontFamily: ubuntuFamily,
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.info_outline,
+                          size: 21,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          "About",
+                          style: TextStyle(
+                            fontSize: 21,
+                            fontFamily: ubuntuFamily,
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

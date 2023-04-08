@@ -3,14 +3,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-
-picker() async {
-  final ImagePicker _picker = ImagePicker();
-  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-  final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-  final XFile? images = await _picker.pickVideo(source: ImageSource.gallery);
-}
 
 String ubuntuFamily = "Ubuntu";
 
@@ -56,4 +48,3 @@ errorTextWidget(errorText) {
     ),
   );
 }
-

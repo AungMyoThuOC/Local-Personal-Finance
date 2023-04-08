@@ -23,6 +23,7 @@ class _BottomBarState extends State<BottomBar> {
     ),
     const Text("App"),
     // ProfilePage(
+    //   id: 1,
     //   list: const [],
     // ),
     const Text("Setting"),

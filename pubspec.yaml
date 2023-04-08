@@ -49,6 +49,8 @@ dependencies:
   fluentui_icons: ^1.0.0
   animate_icons: ^2.0.0
   snippet_coder_utils: ^1.0.13
+  percent_indicator: ^4.2.3
+ 
 
 
 dev_dependencies:

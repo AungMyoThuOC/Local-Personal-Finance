@@ -1,8 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Pages/Saving/saving_add_edit_page.dart';
 import 'package:personal_finance/Pages/Saving/saving_details_page.dart';
@@ -229,177 +232,187 @@ class _SavingListPageState extends State<SavingListPage> {
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      PopupMenuItem(
-                                        child: TextButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (_) => AlertDialog(
-                                                title: Text(
-                                                  "Are you sure you want to delete this type?",
-                                                  style: TextStyle(
-                                                    fontFamily: ubuntuFamily,
-                                                  ),
-                                                ),
-                                                content: Container(
-                                                  height: 60,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
+                                          PopupMenuItem(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (_) => AlertDialog(
+                                                    title: Text(
+                                                      "Are you sure you want to delete this type?",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            ubuntuFamily,
+                                                      ),
+                                                    ),
+                                                    content: Container(
+                                                      height: 60,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Text(
-                                                            "Target Name :",
-                                                            style: TextStyle(
-                                                              fontSize: 15,
-                                                              fontFamily:
-                                                                  ubuntuFamily,
-                                                            ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                "Target Name :",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontFamily:
+                                                                      ubuntuFamily,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                searchSavList[
+                                                                        index][
+                                                                    "record_remark"],
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontFamily:
+                                                                      ubuntuFamily,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                           const SizedBox(
-                                                            width: 5,
+                                                            height: 10,
                                                           ),
-                                                          Text(
-                                                            searchSavList[index]
-                                                                [
-                                                                "record_remark"],
-                                                            style: TextStyle(
-                                                              fontSize: 15,
-                                                              fontFamily:
-                                                                  ubuntuFamily,
-                                                            ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                "Date :",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontFamily:
+                                                                      ubuntuFamily,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Container(
+                                                                width: 130,
+                                                                child: Text(
+                                                                  searchSavList[
+                                                                          index]
+                                                                      [
+                                                                      "record_date"],
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontFamily:
+                                                                        ubuntuFamily,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Date :",
-                                                            style: TextStyle(
-                                                              fontSize: 15,
-                                                              fontFamily:
-                                                                  ubuntuFamily,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Container(
-                                                            width: 130,
+                                                    ),
+                                                    actions: [
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Container(
+                                                          color: Colors.black,
+                                                          child: const Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    15),
                                                             child: Text(
-                                                              searchSavList[
-                                                                      index][
-                                                                  "record_date"],
+                                                              "No",
                                                               style: TextStyle(
-                                                                fontSize: 15,
-                                                                fontFamily:
-                                                                    ubuntuFamily,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
+                                                                color: Colors
+                                                                    .white70,
                                                               ),
                                                             ),
                                                           ),
-                                                        ],
+                                                        ),
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            _db.deleteRecordSav(
+                                                              searchSavList[
+                                                                      index]
+                                                                  ["AutoID"],
+                                                            );
+                                                            Navigator
+                                                                .pushReplacement(
+                                                              context,
+                                                              PageTransition(
+                                                                type: PageTransitionType
+                                                                    .rightToLeft,
+                                                                child: SavingListPage(
+                                                                    id: widget
+                                                                        .id),
+                                                              ),
+                                                            );
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          color: Colors.black,
+                                                          child: const Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    15),
+                                                            child: Text(
+                                                              "Yes",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
-                                                ),
-                                                actions: [
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Container(
-                                                      color: Colors.black,
-                                                      child: const Padding(
-                                                        padding:
-                                                            EdgeInsets.all(15),
-                                                        child: Text(
-                                                          "No",
-                                                          style: TextStyle(
-                                                            color:
-                                                                Colors.white70,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                );
+                                                setState(() {});
+                                              },
+                                              child: Row(
+                                                children: const [
+                                                  Icon(
+                                                    Icons.delete,
+                                                    color: Colors.black,
+                                                    size: 15,
                                                   ),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        _db.deleteRecordSav(
-                                                          searchSavList[index]
-                                                              ["AutoID"],
-                                                        );
-                                                        Navigator
-                                                            .pushReplacement(
-                                                          context,
-                                                          PageTransition(
-                                                            type:
-                                                                PageTransitionType
-                                                                    .rightToLeft,
-                                                            child:
-                                                                SavingListPage(
-                                                                    id: widget
-                                                                        .id),
-                                                          ),
-                                                        );
-                                                      });
-                                                    },
-                                                    child: Container(
-                                                      color: Colors.black,
-                                                      child: const Padding(
-                                                        padding:
-                                                            EdgeInsets.all(15),
-                                                        child: Text(
-                                                          "Yes",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                  SizedBox(
+                                                    width: 15,
                                                   ),
+                                                  Text(
+                                                    "Delete",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                    ),
+                                                  )
                                                 ],
                                               ),
-                                            );
-                                            setState(() {});
-                                          },
-                                          child: Row(
-                                            children: const [
-                                              Icon(
-                                                Icons.delete,
-                                                color: Colors.black,
-                                                size: 15,
-                                              ),
-                                              SizedBox(
-                                                width: 15,
-                                              ),
-                                              Text(
-                                                "Delete",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                ),
-                                              )
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      )
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -422,7 +435,11 @@ class _SavingListPageState extends State<SavingListPage> {
                           )
                         : checkSav == true
                             ? Padding(
-                                padding: const EdgeInsets.only(top: 25),
+                                padding: const EdgeInsets.only(
+                                  top: 16,
+                                  left: 16,
+                                  right: 16,
+                                ),
                                 child: Text(
                                   "No item",
                                   style: TextStyle(
@@ -453,7 +470,9 @@ class _SavingListPageState extends State<SavingListPage> {
                                             type:
                                                 PageTransitionType.rightToLeft,
                                             child: SavingDetailPage(
-                                                id: widget.id, list: mysavList),
+                                              id: widget.id,
+                                              list: mysavList,
+                                            ),
                                           ),
                                         );
                                         setState(() {});
@@ -461,56 +480,91 @@ class _SavingListPageState extends State<SavingListPage> {
                                       child: Card(
                                         elevation: 3,
                                         child: Padding(
-                                          padding: const EdgeInsets.all(10),
+                                          padding: const EdgeInsets.all(15),
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    width: 85,
-                                                    child: Text(
-                                                      getSavDataList[index]
-                                                          ["record_remark"],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontFamily:
-                                                            ubuntuFamily,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 15,
-                                                  ),
-                                                  Container(
-                                                    width: 85,
-                                                    child: Text(
-                                                      DateFormat("dd-MM-yyyy")
-                                                          .format(
-                                                        DateTime.parse(
-                                                          getSavDataList[index]
-                                                              ["record_date"],
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      width: 85,
+                                                      child: Text(
+                                                        getSavDataList[index]
+                                                            ["record_remark"],
+                                                        style: TextStyle(
+                                                          fontSize: 15,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontFamily:
+                                                              ubuntuFamily,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
                                                       ),
-                                                      style: TextStyle(
-                                                        fontSize: 13,
-                                                        fontFamily:
-                                                            ubuntuFamily,
-                                                        color: Colors.black45,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    Container(
+                                                      width: 85,
+                                                      child: Text(
+                                                        DateFormat("dd-MM-yyyy")
+                                                            .format(
+                                                          DateTime.parse(
+                                                            getSavDataList[
+                                                                    index]
+                                                                ["record_date"],
+                                                          ),
+                                                        ),
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontFamily:
+                                                              ubuntuFamily,
+                                                          color: Colors.black45,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child:
+                                                          LinearPercentIndicator(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width -
+                                                            135,
+                                                        animation: true,
+                                                        lineHeight: 12.0,
+                                                        animationDuration: 2000,
+                                                        percent: 0.5,
+                                                        barRadius: const Radius
+                                                            .circular(10),
+                                                        center: const Text(
+                                                          "50.0%",
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                        linearStrokeCap:
+                                                            LinearStrokeCap
+                                                                .roundAll,
+                                                        progressColor:
+                                                            const Color(
+                                                                0xFF000000),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                               PopupMenuButton(
                                                 itemBuilder: (a) => [
