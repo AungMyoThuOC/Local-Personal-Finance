@@ -92,7 +92,10 @@ class _SavingListPageState extends State<SavingListPage> {
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
-                    child: SavingAddEditRecPage(id: widget.id, type: -1),
+                    child: SavingAddEditRecPage(
+                      id: widget.id,
+                      type: -1,
+                    ),
                   ),
                 );
                 setState(() {});
@@ -139,6 +142,7 @@ class _SavingListPageState extends State<SavingListPage> {
                                     child: SavingDetailPage(
                                       id: widget.id,
                                       list: myList,
+                                      type: getSavDataList[0]["AutoID"],
                                     ),
                                   ),
                                 );
@@ -472,6 +476,7 @@ class _SavingListPageState extends State<SavingListPage> {
                                             child: SavingDetailPage(
                                               id: widget.id,
                                               list: mysavList,
+                                              type: getSavDataList[0]["AutoID"],
                                             ),
                                           ),
                                         );
@@ -535,7 +540,9 @@ class _SavingListPageState extends State<SavingListPage> {
                                                       height: 10,
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsets.all(8.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
                                                       child:
                                                           LinearPercentIndicator(
                                                         width: MediaQuery.of(

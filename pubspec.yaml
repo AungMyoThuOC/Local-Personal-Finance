@@ -50,6 +50,8 @@ dependencies:
   animate_icons: ^2.0.0
   snippet_coder_utils: ^1.0.13
   percent_indicator: ^4.2.3
+  cloud_firestore: ^4.4.5
+  top_snackbar_flutter: ^2.1.1
  
 
 

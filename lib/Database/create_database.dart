@@ -19,6 +19,7 @@ class CreateDatabase {
   static const String RECORD_TABLE = 'Record';
   static const String RECORD_OUT_TABLE = 'RecordOut';
   static const String RECORD_SAV_TABLE = 'RecordSav';
+  static const String RECORD_REM_TABLE = 'RecordRem';
   static const String DB_NAME = 'personalfinance.db';
 
   Future<Database?> get db async {
@@ -48,7 +49,9 @@ class CreateDatabase {
       "CREATE TABLE $RECORD_OUT_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_price INTEGER, record_cat TEXT, record_remark TEXT, checkZero TEXT)",
     );
     await db.execute(
-        "CREATE TABLE $RECORD_SAV_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_remark TEXT, record_price INTEGER, record_remaining INTEGER, checkZero TEXT)");
+        "CREATE TABLE $RECORD_SAV_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_remark TEXT, record_price INTEGER, checkZero TEXT)");
+    await db.execute(
+        "CREATE TABLE $RECORD_REM_TABLE(AutoID INTEGER PRIMAEY KEY, record_remaining INTEGER)");
     print("CREATE TBL>>");
   }
 
@@ -120,6 +123,15 @@ class CreateDatabase {
     return createRecordSAV;
   }
 
+  Future<RemainingMap> createRecordREM(RemainingMap createRecordREM) async {
+    Database? _db = await instance.db;
+    createRecordREM.record_remaining = await _db?.insert(
+      RECORD_REM_TABLE,
+      createRecordREM.toMap(),
+    );
+    return createRecordREM;
+  }
+
   Future<int> editRecord(RecordMap record, int id) async {
     var _db = await db;
     return await _db!.update(
@@ -165,6 +177,11 @@ class CreateDatabase {
     return await db!.query(RECORD_SAV_TABLE);
   }
 
+  Future<List<Map<String, dynamic>>> getRecordsRem() async {
+    Database? db = await instance.db;
+    return await db!.query(RECORD_REM_TABLE);
+  }
+
   Future<List<Map<String, dynamic>>> getRecord(int id) async {
     Database? db = await instance.db;
     return await db!.query(
@@ -192,6 +209,15 @@ class CreateDatabase {
     );
   }
 
+  Future<List<Map<String, dynamic>>> getRecordRem(int id) async {
+    Database? db = await instance.db;
+    return await db!.query(
+      RECORD_REM_TABLE,
+      where: 'AutoID = ?',
+      whereArgs: [id],
+    );
+  }
+
   deleteRecord(int id) async {
     var _db = await db;
     return await _db!.delete(
@@ -214,6 +240,15 @@ class CreateDatabase {
     var _db = await db;
     return await _db!.delete(
       RECORD_SAV_TABLE,
+      where: 'AutoID = ?',
+      whereArgs: [id],
+    );
+  }
+
+  deleteRecordRem(int id) async {
+    var _db = await db;
+    return await _db!.delete(
+      RECORD_REM_TABLE,
       where: 'AutoID = ?',
       whereArgs: [id],
     );

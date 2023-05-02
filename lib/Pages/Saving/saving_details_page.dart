@@ -1,5 +1,4 @@
-// ignore_for_file: must_be_immutable, sized_box_for_whitespace
-
+// ignore_for_file: must_be_immutable, sized_box_for_whitespace, non_constant_identifier_names
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,12 +10,18 @@ import 'package:personal_finance/Database/remaining_map.dart';
 import 'package:personal_finance/Pages/Saving/saving_add_edit_page.dart';
 import 'package:personal_finance/Pages/Saving/saving_list.dart';
 import 'package:personal_finance/common.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SavingDetailPage extends StatefulWidget {
   int id;
   List list;
-  SavingDetailPage({Key? key, required this.id, required this.list})
-      : super(key: key);
+  int type;
+  SavingDetailPage({
+    Key? key,
+    required this.id,
+    required this.list,
+    required this.type,
+  }) : super(key: key);
 
   @override
   State<SavingDetailPage> createState() => _SavingDetailPageState();
@@ -27,47 +32,122 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
   List getSavIndexDashboardList = [];
   bool checkSav = false;
   bool loading = false;
+  List getDataList = [];
+  List searchList = [];
+  bool searchCheck = false;
   late TransformationController controller;
-  TextEditingController sliderController = TextEditingController();
+  TextEditingController remainingController = TextEditingController();
   bool checkRem = false;
 
-  _getSavData() {
+  _getSaveData() {
     getSavIndexDashboardList = widget.list;
+    setState(() {});
+  }
+
+  _getData() async {
+    List data = await _db.getRecordsRem();
+    getDataList = data;
+    if (data.isEmpty) {
+      checkRem = true;
+    }
+    print(">>>>>>>>>>>>>> getSAVDETAILDataList : $getDataList");
+    setState(() {});
+  }
+
+  saveIdInSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('saving_details', widget.id);
     setState(() {});
   }
 
   _addRecord() async {
     var remaining_map = RemainingMap(
-      int.parse(sliderController.text),
+      int.parse(remainingController.text),
     );
     _db.createRecordSAV(remaining_map).then((value) {
       loading = false;
     });
-    Navigator.of(context).pop(
-      MaterialPageRoute(
-        builder: (context) => SavingDetailPage(
-          id: widget.id,
-          list: [],
-        ),
-      ),
+    ListView.builder(
+      shrinkWrap: true,
+      itemCount: getDataList.length,
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () async {
+            List myList = await _db.getRecordRem(
+              getDataList[index]["AutoID"],
+            );
+            Navigator.of(context).pop(
+              MaterialPageRoute(
+                builder: (context) => SavingDetailPage(
+                  id: widget.id,
+                  list: myList,
+                  type: getSavIndexDashboardList[index]["AutoID"],
+                ),
+              ),
+            );
+            setState(() {});
+          },
+        );
+      },
     );
+
+    // Navigator.of(context).pop(
+    //   MaterialPageRoute(
+    //     builder: (context) => SavingDetailPage(
+    //       id: widget.id,
+    //       list: [],
+    //       type: getSavIndexDashboardList[0]["AutoID"],
+    //     ),
+    //   ),
+    // );
+    setState(() {});
   }
 
   _editItem() async {
     var remaining_map = RemainingMap(
-      int.parse(sliderController.text),
+      int.parse(remainingController.text),
     );
     _db.createRecordSAV(remaining_map).then((value) {
       loading = false;
     });
-    Navigator.of(context).pop(
-      MaterialPageRoute(
-        builder: (context) => SavingDetailPage(
-          id: widget.id,
-          list: [],
-        ),
-      ),
+    ListView.builder(
+      shrinkWrap: true,
+      itemCount: getDataList.length,
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () async {
+            List myList = await _db.getRecordRem(
+              getDataList[index]["AutoID"],
+            );
+            Navigator.of(context).pop(
+              MaterialPageRoute(
+                builder: (context) => SavingDetailPage(
+                  id: widget.id,
+                  list: myList,
+                  type: getSavIndexDashboardList[index]["AutoID"],
+                ),
+              ),
+            );
+            setState(() {});
+          },
+        );
+      },
     );
+    setState(() {});
+  }
+
+  getEditData() async {
+    List data = await _db.getRecordRem(widget.type);
+    print(">>>>>>>> data $data");
+    setState(() {
+      remainingController.text = data[0]["record_remaining"].toString();
+      setState(() {});
+    });
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      setState(() {});
+    });
   }
 
   _text(title, text) {
@@ -114,12 +194,14 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
 
   @override
   void initState() {
-    _getSavData();
+    _getSaveData();
     Future.delayed(const Duration(seconds: 1)).then((value) {
       setState(() {
         checkSav = true;
       });
     });
+    _getData();
+    getEditData();
     super.initState();
   }
 
@@ -149,11 +231,19 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: TextFormField(
+                        controller: remainingController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                         ],
+                        onChanged: (val) {
+                          setState(() {
+                            if (remainingController.text != "") {
+                              checkRem = false;
+                            }
+                          });
+                        },
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -163,7 +253,6 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                             color: Colors.grey,
                           ),
                         ),
-                        controller: sliderController,
                       ),
                     ),
                     const SizedBox(
@@ -195,26 +284,38 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                       child: GestureDetector(
                         onTap: () {
                           loading = true;
-                          if (sliderController.text == "") {}
+                          if (remainingController.text == "") {
+                            checkRem = true;
+                            loading = false;
+                          } else {
+                            checkRem = false;
+                            if (widget.type == -1) {
+                              _addRecord();
+                            } else {
+                              _editItem();
+                            }
+                          }
+                          setState(() {});
                         },
                         child: Container(
                           // color: Colors.black,
                           child: Center(
-                              child: loading == true
-                                  ? const SizedBox(
-                                      // width: 23,
-                                      // height: 23,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  : Text(
-                                      "Save",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: ubuntuFamily,
-                                      ),
-                                    )),
+                            child: loading == true
+                                ? const SizedBox(
+                                    // width: 23,
+                                    // height: 23,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : Text(
+                                    "Save",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: ubuntuFamily,
+                                    ),
+                                  ),
+                          ),
                         ),
                       ),
                     ),
@@ -461,10 +562,38 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                       percent: 0.5,
                     ),
                     Column(
-                      children: const [
-                        SizedBox(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
                           height: 20,
                         ),
+                        StreamBuilder(
+                          // stream: ,
+                          builder: (context, snapshot) {
+                            // _db.getRecordSav(
+                            //   getDataList[0]["AutoID"],
+                            // );
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            }
+                            // var ds = snapshot.data!;
+                            double sum = 0.0;
+
+                            // for (int i = 0; i < getDataList.length; i++)
+                            //   sum += (getDataList[i]["amount"]).toDouble();
+
+                            // return Text("Remaining/Total");
+                            return Text(
+                              '${sum}/${getSavIndexDashboardList[0]["record_price"]}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: ubuntuFamily,
+                              ),
+                            );
+                          },
+                        )
                       ],
                     ),
                     const SizedBox(
@@ -516,16 +645,45 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.4,
-                                        child: Text(
-                                          "",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontFamily: ubuntuFamily,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                                        child: StreamBuilder(
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const CircularProgressIndicator();
+                                            }
+
+                                            // var db = snapshot.data!;
+
+                                            double sum = 0.0;
+
+                                            // for (int i = 0; i < db; i++)
+
+                                            return Text(
+                                              '${getSavIndexDashboardList[0]["record_price"] - sum}',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontFamily: ubuntuFamily,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
+                                      // Container(
+                                      //   width:
+                                      //       MediaQuery.of(context).size.width *
+                                      //           0.4,
+                                      //   child: Text(
+                                      //     "",
+                                      //     style: TextStyle(
+                                      //       color: Colors.black,
+                                      //       fontSize: 18,
+                                      //       fontFamily: ubuntuFamily,
+                                      //       overflow: TextOverflow.ellipsis,
+                                      //     ),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                   const SizedBox(
@@ -551,6 +709,334 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                     const SizedBox(
                       height: 30,
                     ),
+
+                    searchList.isNotEmpty
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: searchList.length,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  right: 16,
+                                  bottom: 16,
+                                ),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    List myList = await _db.getRecordRem(
+                                      searchList[index]["AutoID"],
+                                    );
+                                    Navigator.pushReplacement(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: SavingDetailPage(
+                                            id: widget.id,
+                                            list: myList,
+                                            type: widget.type),
+                                      ),
+                                    );
+                                    setState(() {});
+                                  },
+                                  child: Card(
+                                    elevation: 3,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: 85,
+                                                child: Text(
+                                                  searchList[index]
+                                                      ["record_remaining"],
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: ubuntuFamily,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 15,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        : searchCheck == true
+                            ? Padding(
+                                padding: const EdgeInsets.only(bottom: 25),
+                                child: Text(
+                                  "No search item",
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 20,
+                                    fontFamily: ubuntuFamily,
+                                  ),
+                                ),
+                              )
+                            : checkRem == true
+                                ? Padding(
+                                    padding: const EdgeInsets.only(top: 25),
+                                    child: Text(
+                                      "No item",
+                                      style: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 20,
+                                        fontFamily: ubuntuFamily,
+                                      ),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: getDataList.length,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 16,
+                                          right: 16,
+                                          left: 16,
+                                        ),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            List myList =
+                                                await _db.getRecordRem(
+                                              getDataList[index]["AutoID"],
+                                            );
+                                            Navigator.of(context).pop(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SavingDetailPage(
+                                                  id: widget.id,
+                                                  list: myList,
+                                                  type:
+                                                      getSavIndexDashboardList[
+                                                          index]["AutoID"],
+                                                ),
+                                              ),
+                                            );
+                                            setState(() {});
+                                          },
+                                          child: Card(
+                                            elevation: 3,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        width: 50,
+                                                        child: Text(
+                                                          getDataList[index][
+                                                              "record_remaining"],
+                                                          style: TextStyle(
+                                                            fontSize: 15,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontFamily:
+                                                                ubuntuFamily,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  PopupMenuButton(
+                                                    itemBuilder: (a) => [
+                                                      PopupMenuItem(
+                                                        child: TextButton(
+                                                          onPressed: () {
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (_) =>
+                                                                  AlertDialog(
+                                                                title: Text(
+                                                                  "Are you sure you want to delete this type ?",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        ubuntuFamily,
+                                                                  ),
+                                                                ),
+                                                                content:
+                                                                    Container(
+                                                                  height: 60,
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                            "Remaining : ",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 15,
+                                                                              fontFamily: ubuntuFamily,
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                            width:
+                                                                                5,
+                                                                          ),
+                                                                          Text(
+                                                                            getDataList[index]["record_remaining"],
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 15,
+                                                                              fontFamily: ubuntuFamily,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                actions: [
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      child:
+                                                                          const Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(15),
+                                                                        child:
+                                                                            Text(
+                                                                          "No",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.white70,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  GestureDetector(
+                                                                    onTap:
+                                                                        () async {
+                                                                      List
+                                                                          myList =
+                                                                          await _db
+                                                                              .getRecordRem(
+                                                                        getDataList[index]
+                                                                            [
+                                                                            "AutoID"],
+                                                                      );
+                                                                      setState(
+                                                                          () {
+                                                                        _db.deleteRecordSav(
+                                                                          getDataList[index]
+                                                                              [
+                                                                              "AutoID"],
+                                                                        );
+                                                                        Navigator.of(context)
+                                                                            .pop(
+                                                                          MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                SavingDetailPage(
+                                                                              id: widget.id,
+                                                                              list: myList,
+                                                                              type: getSavIndexDashboardList[index]["AutoID"],
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      });
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      child:
+                                                                          const Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(15),
+                                                                        child:
+                                                                            Text(
+                                                                          "Yes",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                            setState(() {});
+                                                          },
+                                                          child: Row(
+                                                            children: const [
+                                                              Icon(
+                                                                Icons.delete,
+                                                                color: Colors
+                                                                    .black,
+                                                                size: 15,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 15,
+                                                              ),
+                                                              Text(
+                                                                "Delete",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 15,
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  )
                   ],
                 ),
               ),
