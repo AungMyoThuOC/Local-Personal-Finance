@@ -67,7 +67,7 @@ class _SavingListPageState extends State<SavingListPage> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const Text(
-            "Saving List",
+            "List",
             style: TextStyle(
               color: Colors.black,
             ),
@@ -118,6 +118,9 @@ class _SavingListPageState extends State<SavingListPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
                 searchSavList.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
@@ -438,12 +441,7 @@ class _SavingListPageState extends State<SavingListPage> {
                             ),
                           )
                         : checkSav == true
-                            ? Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 16,
-                                  left: 16,
-                                  right: 16,
-                                ),
+                            ? Center(
                                 child: Text(
                                   "No item",
                                   style: TextStyle(

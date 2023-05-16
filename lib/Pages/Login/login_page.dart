@@ -25,6 +25,9 @@ class _LoginAccountPageState extends State<LoginAccountPage> {
   bool checkPhoneNumber = false;
   bool checkPassword = false;
 
+  final _formKey = GlobalKey<FormState>();
+  // bool isLoading = false;
+
   void _loginAccount() async {
     setState(() {
       print(accountList);
@@ -66,6 +69,12 @@ class _LoginAccountPageState extends State<LoginAccountPage> {
     _getData();
     super.initState();
   }
+
+  // @override
+  // void dispose() {
+  //   mytime.cancel();
+  //   super.dispose();
+  // } 
 
   @override
   Widget build(BuildContext context) {
@@ -109,166 +118,170 @@ class _LoginAccountPageState extends State<LoginAccountPage> {
             return false;
           },
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Center(
-                //   child: Image.asset(
-                //     "images/login.png",
-                //     width: 250,
-                //     height: 250,
-                //   ),
-                // ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextField(
-                        controller: _phoneNoController,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp('[0-9]'),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          setState(() {
-                            if (_phoneNoController.text != "") {
-                              checkPhoneNumber = false;
-                            }
-                          });
-                        },
-                        decoration:  InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          hintText: "Phone number",
-                          hintStyle: const TextStyle(
-                            color: Colors.black45,
-                            fontSize: 15,
-                          ),
-                          // focusedBorder: UnderlineInputBorder(
-                          //   borderSide: BorderSide(color: Colors.black26),
-                          // ),
-                          // enabledBorder: UnderlineInputBorder(
-                          //   borderSide: BorderSide(color: Colors.black26),
-                          // ),
-                        ),
-                      ),
-                      checkPhoneNumber
-                          ? errorTextWidget("Enter phone number")
-                          : Container(),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextField(
-                        controller: _passwordController,
-                        obscureText: checkObscureText,
-                        onChanged: (value) {
-                          setState(() {
-                            if (_passwordController.text != "") {
-                              checkPassword = false;
-                            }
-                          });
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)
-                          ),
-                          hintText: "Password",
-                          // focusedBorder: const UnderlineInputBorder(
-                          //   borderSide: BorderSide(color: Colors.black26),
-                          // ),
-                          // enabledBorder: const UnderlineInputBorder(
-                          //   borderSide: BorderSide(color: Colors.black26),
-                          // ),
-                          hintStyle: const TextStyle(
-                            color: Colors.black45,
-                            fontSize: 15,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              checkObscureText = !checkObscureText;
-                              setState(() {});
-                            },
-                            icon: Icon(
-                              checkObscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Center(
+                  //   child: Image.asset(
+                  //     "images/login.png",
+                  //     width: 250,
+                  //     height: 250,
+                  //   ),
+                  // ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 16, right: 16, left: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextField(
+                          controller: _phoneNoController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp('[0-9]'),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            setState(() {
+                              if (_phoneNoController.text != "") {
+                                checkPhoneNumber = false;
+                              }
+                            });
+                          },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            hintText: "Phone number",
+                            hintStyle: const TextStyle(
                               color: Colors.black45,
+                              fontSize: 15,
+                            ),
+                            // focusedBorder: UnderlineInputBorder(
+                            //   borderSide: BorderSide(color: Colors.black26),
+                            // ),
+                            // enabledBorder: UnderlineInputBorder(
+                            //   borderSide: BorderSide(color: Colors.black26),
+                            // ),
+                          ),
+                        ),
+                        checkPhoneNumber
+                            ? errorTextWidget("Enter phone number")
+                            : Container(),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 16, right: 16, left: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextField(
+                          controller: _passwordController,
+                          obscureText: checkObscureText,
+                          onChanged: (value) {
+                            setState(() {
+                              if (_passwordController.text != "") {
+                                checkPassword = false;
+                              }
+                            });
+                          },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            hintText: "Password",
+                            // focusedBorder: const UnderlineInputBorder(
+                            //   borderSide: BorderSide(color: Colors.black26),
+                            // ),
+                            // enabledBorder: const UnderlineInputBorder(
+                            //   borderSide: BorderSide(color: Colors.black26),
+                            // ),
+                            hintStyle: const TextStyle(
+                              color: Colors.black45,
+                              fontSize: 15,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                checkObscureText = !checkObscureText;
+                                setState(() {});
+                              },
+                              icon: Icon(
+                                checkObscureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.black45,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      checkPassword
-                          ? errorTextWidget("Enter password")
-                          : Container(),
-                    ],
+                        checkPassword
+                            ? errorTextWidget("Enter password")
+                            : Container(),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: 16, left: 16, right: 16),
-                  child: Container(
-                    color: Colors.black,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_phoneNoController.text == "" &&
-                            _passwordController.text == "") {
-                          checkPhoneNumber = true;
-                          checkPassword = true;
-                        } else if (_phoneNoController.text == "") {
-                          checkPhoneNumber = true;
-                          if (_passwordController.text == "") {
-                            checkPassword = true;
-                          } else {
-                            checkPassword = false;
-                          }
-                        } else if (_passwordController.text == "") {
-                          checkPassword = true;
-                          if (_phoneNoController.text == "") {
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+                    child: Container(
+                      color: Colors.black,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      child: GestureDetector(
+                        onTap: () {
+                          if (_phoneNoController.text == "" &&
+                              _passwordController.text == "") {
                             checkPhoneNumber = true;
+                            checkPassword = true;
+                          } else if (_phoneNoController.text == "") {
+                            checkPhoneNumber = true;
+                            if (_passwordController.text == "") {
+                              checkPassword = true;
+                            } else {
+                              checkPassword = false;
+                            }
+                          } else if (_passwordController.text == "") {
+                            checkPassword = true;
+                            if (_phoneNoController.text == "") {
+                              checkPhoneNumber = true;
+                            } else {
+                              checkPhoneNumber = false;
+                            }
                           } else {
                             checkPhoneNumber = false;
+                            checkPassword = false;
+                            _loginAccount();
                           }
-                        } else {
-                          checkPhoneNumber = false;
-                          checkPassword = false;
-                          _loginAccount();
-                        }
-                        setState(() {});
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width,
-                        color: Colors.black,
-                        child: const Center(
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Colors.white,
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.black,
+                          child: const Center(
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

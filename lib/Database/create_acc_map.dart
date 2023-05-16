@@ -4,14 +4,14 @@ class AccMap {
   var name;
   var phonenum;
   var password;
-  // var image;
+  var image;
   var checkZero;
 
   AccMap(
     this.name,
     this.phonenum,
     this.password,
-    // this.image,
+    this.image,
     this.checkZero,
   );
 
@@ -20,7 +20,7 @@ class AccMap {
       'name': name,
       'phonenum': phonenum,
       'password': password,
-      // "image": image,
+      "image": image,
       "checkZero": checkZero,
     };
     return map;
@@ -30,7 +30,7 @@ class AccMap {
     name = map['name'];
     phonenum = map["phonenum"];
     password = map['password'];
-    // image = map["image"];
+    image = map["image"];
     checkZero = map["checkZero"];
   }
 }

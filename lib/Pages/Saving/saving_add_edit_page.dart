@@ -12,7 +12,6 @@ import 'package:personal_finance/Pages/Saving/saving_page.dart';
 import 'package:personal_finance/Pages/bottom_bar.dart';
 import 'package:personal_finance/common.dart';
 
-
 class SavingAddEditRecPage extends StatefulWidget {
   int id;
   int type;
@@ -133,7 +132,7 @@ class _SavingAddEditRecPageState extends State<SavingAddEditRecPage> {
           centerTitle: true,
           elevation: 0.0,
           title: Text(
-            widget.type == -1 ? "Saving New Item" : "Saving Edit Item",
+            widget.type == -1 ? "New" : "Edit",
             style: TextStyle(
               color: Colors.black,
               fontFamily: ubuntuFamily,
@@ -326,7 +325,7 @@ class _SavingAddEditRecPageState extends State<SavingAddEditRecPage> {
                                 ),
                               )
                             : Text(
-                                "Save Item",
+                                "Save",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: ubuntuFamily,

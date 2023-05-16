@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   int key = 0;
 
-  Map<String, double> dataMap = {"income": 7, "outcome": 3, "saving": 2};
+  Map<String, double> dataMap = {"Income": 7, "Outcome": 3, "Saving": 2};
 
   List<Color> colorList = [
     const Color(0xFFB0B7C0),

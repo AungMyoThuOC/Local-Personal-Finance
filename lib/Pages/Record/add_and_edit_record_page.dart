@@ -184,7 +184,7 @@ class _AddAndEditRecordPageState extends State<AddAndEditRecordPage> {
           centerTitle: true,
           elevation: 0,
           title: Text(
-            widget.type == -1 ? "Income New Item" : "Income Edit Item",
+            widget.type == -1 ? "New Item" : "Edit Item",
             style: TextStyle(
               color: Colors.black,
               fontFamily: ubuntuFamily,

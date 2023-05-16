@@ -110,7 +110,7 @@ class _DetailPageState extends State<DetailPage> {
           },
         ),
         title: Text(
-          "Income View Item",
+          "View Item",
           style: TextStyle(
             color: Colors.black,
             fontFamily: ubuntuFamily,

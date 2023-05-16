@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Database/remaining_map.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HistRemain extends StatefulWidget {
   HistRemain({

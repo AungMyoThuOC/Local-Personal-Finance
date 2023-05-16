@@ -110,7 +110,7 @@ class _OutDetailPageState extends State<OutDetailPage> {
           },
         ),
         title: Text(
-          "Outcome View Item",
+          "View Item",
           style: TextStyle(
             color: Colors.black,
             fontFamily: ubuntuFamily,

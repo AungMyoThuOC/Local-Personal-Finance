@@ -80,10 +80,12 @@ class _IncomePageState extends State<IncomePage> {
             color: Colors.black,
             onPressed: () {
               Navigator.pushReplacement(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.leftToRight,
-                      child: const BottomBar()));
+                context,
+                PageTransition(
+                  type: PageTransitionType.leftToRight,
+                  child: const BottomBar(),
+                ),
+              );
               setState(() {});
             },
           ),
@@ -121,6 +123,9 @@ class _IncomePageState extends State<IncomePage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
                 searchList.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
@@ -440,8 +445,7 @@ class _IncomePageState extends State<IncomePage> {
                             ),
                           )
                         : check == true
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 25),
+                            ? Center(
                                 child: Text(
                                   "No item",
                                   style: TextStyle(

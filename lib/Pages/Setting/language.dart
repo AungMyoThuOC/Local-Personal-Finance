@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:personal_finance/Pages/bottom_bar.dart';
-import 'package:personal_finance/common.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguagePage extends StatefulWidget {
@@ -60,6 +59,9 @@ class _LanguagePageState extends State<LanguagePage> {
                 "English",
               ),
               onChanged: (value) async {
+                // Image.asset(
+                //   "assets/images/Myanmar.png",
+                // );
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setInt('language', 1);
                 setState(() {
@@ -70,6 +72,15 @@ class _LanguagePageState extends State<LanguagePage> {
             const Divider(
               thickness: 0.5,
             ),
+            // Row(
+            //   children: [
+            //     Image.asset(
+            //       "assets/images/Myanmar.png",
+            //       width: 50,
+            //       height: 50,
+            //     ),
+            //   ],
+            // ),
             RadioListTile<int>(
               value: 2,
               groupValue: selectedLang,

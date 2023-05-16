@@ -178,7 +178,7 @@ class _OutAddAndEditRecPageState extends State<OutAddAndEditRecPage> {
           centerTitle: true,
           elevation: 0,
           title: Text(
-            widget.type == -1 ? "Outcome New Item" : "Outcome Edit Item",
+            widget.type == -1 ? "New Item" : "Edit Item",
             style: TextStyle(
               color: Colors.black,
               fontFamily: ubuntuFamily,

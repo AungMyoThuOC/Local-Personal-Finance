@@ -22,11 +22,10 @@ class _BottomBarState extends State<BottomBar> {
       id: 1,
     ),
     const Text("App"),
-    // ProfilePage(
-    //   id: 1,
-    //   list: const [],
-    // ),
-    const Text("Setting"),
+    ProfilePage(
+      id: 1,
+    ),
+    // const Text("Setting"),
   ];
 
   void _onItemTapped(int index) {

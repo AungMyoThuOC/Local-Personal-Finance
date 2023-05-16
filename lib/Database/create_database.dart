@@ -49,7 +49,8 @@ class CreateDatabase {
       "CREATE TABLE $RECORD_OUT_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_price INTEGER, record_cat TEXT, record_remark TEXT, checkZero TEXT)",
     );
     await db.execute(
-        "CREATE TABLE $RECORD_SAV_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_remark TEXT, record_price INTEGER, checkZero TEXT)");
+      "CREATE TABLE $RECORD_SAV_TABLE(AutoID INTEGER PRIMARY KEY, record_date TEXT, record_remark TEXT, record_price INTEGER, checkZero TEXT)",
+    );
     await db.execute(
         "CREATE TABLE $RECORD_REM_TABLE(AutoID INTEGER PRIMAEY KEY, record_remaining INTEGER)");
     print("CREATE TBL>>");
@@ -59,6 +60,7 @@ class CreateDatabase {
   Future<AccMap> createAcc(AccMap createAcc) async {
     Database? _db = await instance.db;
     createAcc.name = await _db?.insert(ACCOUNT_TABLE, createAcc.toMap());
+    print("ac.name$createAcc");
     return createAcc;
   }
 
@@ -114,6 +116,15 @@ class CreateDatabase {
     return createRecordSav;
   }
 
+  Future<RecordMap> createRecordREm(RecordMap createRecordREm) async {
+    Database? _db = await instance.db;
+    createRecordREm.record_price = await _db?.insert(
+      RECORD_REM_TABLE,
+      createRecordREm.toMap(),
+    );
+    return createRecordREm;
+  }
+
   Future<RemainingMap> createRecordSAV(RemainingMap createRecordSAV) async {
     Database? _db = await instance.db;
     createRecordSAV.record_remaining = await _db?.insert(
@@ -157,6 +168,16 @@ class CreateDatabase {
     return await _db!.update(
       RECORD_SAV_TABLE,
       recordSav.toMap(),
+      where: 'AutoID = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> editRecordREM(RecordMap recordREM, int id) async {
+    var _db = await db;
+    return await _db!.update(
+      RECORD_REM_TABLE,
+      recordREM.toMap(),
       where: 'AutoID = ?',
       whereArgs: [id],
     );

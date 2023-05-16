@@ -123,6 +123,9 @@ class _OutcomePageState extends State<OutcomePage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
                 searchOutList.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
@@ -442,8 +445,7 @@ class _OutcomePageState extends State<OutcomePage> {
                             ),
                           )
                         : checkOut == true
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 25),
+                            ? Center(
                                 child: Text(
                                   "No item",
                                   style: TextStyle(
