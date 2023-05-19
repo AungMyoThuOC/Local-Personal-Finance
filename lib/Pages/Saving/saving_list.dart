@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
 
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Pages/Saving/saving_add_edit_page.dart';
 import 'package:personal_finance/Pages/Saving/saving_details_page.dart';
 import 'package:personal_finance/Pages/bottom_bar.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 import 'package:personal_finance/common.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,9 +67,10 @@ class _SavingListPageState extends State<SavingListPage> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text(
-            "List",
-            style: TextStyle(
+          title: Text(
+            // "List",
+            translation(context).list,
+            style: const TextStyle(
               color: Colors.black,
             ),
           ),
@@ -219,18 +221,19 @@ class _SavingListPageState extends State<SavingListPage> {
                                                 setState(() {});
                                               },
                                               child: Row(
-                                                children: const [
-                                                  Icon(
+                                                children: [
+                                                  const Icon(
                                                     Icons.edit,
                                                     color: Colors.black,
                                                     size: 15,
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 15,
                                                   ),
                                                   Text(
-                                                    "Edit",
-                                                    style: TextStyle(
+                                                    // "Edit",
+                                                    translation(context).edit,
+                                                    style: const TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 15,
                                                     ),
@@ -246,7 +249,9 @@ class _SavingListPageState extends State<SavingListPage> {
                                                   context: context,
                                                   builder: (_) => AlertDialog(
                                                     title: Text(
-                                                      "Are you sure you want to delete this type?",
+                                                      // "Do you want to delete?",
+                                                      translation(context)
+                                                          .d_y_w_t_d,
                                                       style: TextStyle(
                                                         fontFamily:
                                                             ubuntuFamily,
@@ -265,7 +270,10 @@ class _SavingListPageState extends State<SavingListPage> {
                                                                     .start,
                                                             children: [
                                                               Text(
-                                                                "Target Name :",
+                                                                // "Target Name :",
+                                                                translation(
+                                                                        context)
+                                                                    .trg_nae,
                                                                 style:
                                                                     TextStyle(
                                                                   fontSize: 15,
@@ -298,7 +306,10 @@ class _SavingListPageState extends State<SavingListPage> {
                                                                     .start,
                                                             children: [
                                                               Text(
-                                                                "Date :",
+                                                                // "Date :",
+                                                                translation(
+                                                                        context)
+                                                                    .date,
                                                                 style:
                                                                     TextStyle(
                                                                   fontSize: 15,
@@ -341,13 +352,17 @@ class _SavingListPageState extends State<SavingListPage> {
                                                         },
                                                         child: Container(
                                                           color: Colors.black,
-                                                          child: const Padding(
+                                                          child: Padding(
                                                             padding:
-                                                                EdgeInsets.all(
-                                                                    15),
+                                                                const EdgeInsets
+                                                                    .all(15),
                                                             child: Text(
-                                                              "No",
-                                                              style: TextStyle(
+                                                              // "No",
+                                                              translation(
+                                                                      context)
+                                                                  .no,
+                                                              style:
+                                                                  const TextStyle(
                                                                 color: Colors
                                                                     .white70,
                                                               ),
@@ -378,13 +393,17 @@ class _SavingListPageState extends State<SavingListPage> {
                                                         },
                                                         child: Container(
                                                           color: Colors.black,
-                                                          child: const Padding(
+                                                          child: Padding(
                                                             padding:
-                                                                EdgeInsets.all(
-                                                                    15),
+                                                                const EdgeInsets
+                                                                    .all(15),
                                                             child: Text(
-                                                              "Yes",
-                                                              style: TextStyle(
+                                                              // "Yes",
+                                                              translation(
+                                                                      context)
+                                                                  .yes,
+                                                              style:
+                                                                  const TextStyle(
                                                                 color: Colors
                                                                     .white,
                                                               ),
@@ -398,18 +417,19 @@ class _SavingListPageState extends State<SavingListPage> {
                                                 setState(() {});
                                               },
                                               child: Row(
-                                                children: const [
-                                                  Icon(
+                                                children: [
+                                                  const Icon(
                                                     Icons.delete,
                                                     color: Colors.black,
                                                     size: 15,
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 15,
                                                   ),
                                                   Text(
-                                                    "Delete",
-                                                    style: TextStyle(
+                                                    // "Delete",
+                                                    translation(context).delete,
+                                                    style: const TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 15,
                                                     ),
@@ -433,6 +453,7 @@ class _SavingListPageState extends State<SavingListPage> {
                             padding: const EdgeInsets.only(top: 25),
                             child: Text(
                               "No Search Item",
+                              // translation(context).no_srch_itm,
                               style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 20,
@@ -443,7 +464,8 @@ class _SavingListPageState extends State<SavingListPage> {
                         : checkSav == true
                             ? Center(
                                 child: Text(
-                                  "No item",
+                                  // "No price has been added.",
+                                  translation(context).no_pric_ha_ben_add,
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: 20,
@@ -597,18 +619,21 @@ class _SavingListPageState extends State<SavingListPage> {
                                                         setState(() {});
                                                       },
                                                       child: Row(
-                                                        children: const [
-                                                          Icon(
+                                                        children: [
+                                                          const Icon(
                                                             Icons.edit,
                                                             color: Colors.black,
                                                             size: 15,
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 15,
                                                           ),
                                                           Text(
-                                                            "Edit",
-                                                            style: TextStyle(
+                                                            // "Edit",
+                                                            translation(context)
+                                                                .edit,
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 15,
@@ -626,7 +651,10 @@ class _SavingListPageState extends State<SavingListPage> {
                                                           builder: (_) =>
                                                               AlertDialog(
                                                             title: Text(
-                                                              "Are you sure you want to delete this type?",
+                                                              // "Do you want to delete?",
+                                                              translation(
+                                                                      context)
+                                                                  .d_y_w_t_d,
                                                               style: TextStyle(
                                                                 fontFamily:
                                                                     ubuntuFamily,
@@ -645,7 +673,9 @@ class _SavingListPageState extends State<SavingListPage> {
                                                                             .start,
                                                                     children: [
                                                                       Text(
-                                                                        "Target Name :",
+                                                                        // "Target Name :",
+                                                                        translation(context)
+                                                                            .trg_nae,
                                                                         style:
                                                                             TextStyle(
                                                                           fontSize:
@@ -681,7 +711,9 @@ class _SavingListPageState extends State<SavingListPage> {
                                                                             .start,
                                                                     children: [
                                                                       Text(
-                                                                        "Date :",
+                                                                        // "Date :",
+                                                                        translation(context)
+                                                                            .date,
                                                                         style:
                                                                             TextStyle(
                                                                           fontSize:
@@ -725,14 +757,17 @@ class _SavingListPageState extends State<SavingListPage> {
                                                                   color: Colors
                                                                       .black,
                                                                   child:
-                                                                      const Padding(
+                                                                      Padding(
                                                                     padding:
-                                                                        EdgeInsets.all(
+                                                                        const EdgeInsets.all(
                                                                             15),
                                                                     child: Text(
-                                                                      "No",
+                                                                      // "No",
+                                                                      translation(
+                                                                              context)
+                                                                          .no,
                                                                       style:
-                                                                          TextStyle(
+                                                                          const TextStyle(
                                                                         color: Colors
                                                                             .white70,
                                                                       ),
@@ -766,14 +801,17 @@ class _SavingListPageState extends State<SavingListPage> {
                                                                   color: Colors
                                                                       .black,
                                                                   child:
-                                                                      const Padding(
+                                                                      Padding(
                                                                     padding:
-                                                                        EdgeInsets.all(
+                                                                        const EdgeInsets.all(
                                                                             15),
                                                                     child: Text(
-                                                                      "Yes",
+                                                                      // "Yes",
+                                                                      translation(
+                                                                              context)
+                                                                          .yes,
                                                                       style:
-                                                                          TextStyle(
+                                                                          const TextStyle(
                                                                         color: Colors
                                                                             .white,
                                                                       ),
@@ -787,18 +825,20 @@ class _SavingListPageState extends State<SavingListPage> {
                                                         setState(() {});
                                                       },
                                                       child: Row(
-                                                        children: const [
-                                                          Icon(
+                                                        children: [
+                                                          const Icon(
                                                             Icons.delete,
                                                             color: Colors.black,
                                                             size: 15,
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 15,
                                                           ),
                                                           Text(
-                                                            "Delete",
-                                                            style: TextStyle(
+                                                            // "Delete",
+                                                            translation(context)
+                                                                .delete,
+                                                            style: const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 15,

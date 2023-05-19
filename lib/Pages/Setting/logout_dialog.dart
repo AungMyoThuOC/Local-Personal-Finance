@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:personal_finance/Pages/Login/login_page.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 
 enum DialogsAction { yes, cancel }
 
@@ -24,9 +25,10 @@ class AlertDialogs {
           actions: <Widget>[
             FlatButton(
               onPressed: () => Navigator.of(context).pop(DialogsAction.cancel),
-              child: const Text(
-                "Cancel",
-                style: TextStyle(
+              child: Text(
+                // "Cancel",
+                translation(context).cancel,
+                style: const TextStyle(
                   color: Color(0xFF5463FF),
                   fontWeight: FontWeight.bold,
                 ),
@@ -40,9 +42,10 @@ class AlertDialogs {
                   ),
                 );
               },
-              child: const Text(
-                "Confirm",
-                style: TextStyle(
+              child: Text(
+                // "Confirm",
+                translation(context).com,
+                style: const TextStyle(
                   color: Color(0xFFFF1818),
                   fontWeight: FontWeight.w700,
                 ),

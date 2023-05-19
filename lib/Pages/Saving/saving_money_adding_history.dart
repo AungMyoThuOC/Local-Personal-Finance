@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, must_be_immutable, avoid_print
+// ignore_for_file: camel_case_types, must_be_immutable, avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +7,7 @@ import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Pages/Saving/saving_add_edit_page.dart';
 import 'package:personal_finance/Pages/Saving/saving_details_page.dart';
 import 'package:personal_finance/Pages/Saving/saving_list.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 import 'package:personal_finance/common.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -87,6 +88,7 @@ class _savingHistoryState extends State<savingHistory> {
                       padding: const EdgeInsets.only(top: 25),
                       child: Text(
                         "No Search Item",
+                        // translation(context).no_srch_itm,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -97,7 +99,8 @@ class _savingHistoryState extends State<savingHistory> {
                   : check == true
                       ? Center(
                           child: Text(
-                            "No price has been added.",
+                            // "No price has been added.",
+                            translation(context).no_pric_ha_ben_add,
                             style: TextStyle(
                               color: Colors.black54,
                               fontSize: 20,
@@ -210,18 +213,19 @@ class _savingHistoryState extends State<savingHistory> {
                                                   setState(() {});
                                                 },
                                                 child: Row(
-                                                  children: const [
-                                                    Icon(
+                                                  children: [
+                                                    const Icon(
                                                       Icons.edit,
                                                       color: Colors.black,
                                                       size: 15,
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 15,
                                                     ),
                                                     Text(
-                                                      "Edit",
-                                                      style: TextStyle(
+                                                      // "Edit",
+                                                      translation(context).edit,
+                                                      style: const TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 15,
                                                       ),
@@ -237,7 +241,9 @@ class _savingHistoryState extends State<savingHistory> {
                                                     context: context,
                                                     builder: (_) => AlertDialog(
                                                       title: Text(
-                                                        "Are you sure you want to delete this type?",
+                                                        // "Do you want to delete?",
+                                                        translation(context)
+                                                            .d_y_w_t_d,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               ubuntuFamily,
@@ -256,7 +262,10 @@ class _savingHistoryState extends State<savingHistory> {
                                                                       .start,
                                                               children: [
                                                                 Text(
-                                                                  "Remaining :",
+                                                                  // "Remaining :",
+                                                                  translation(
+                                                                          context)
+                                                                      .rem,
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
@@ -292,7 +301,10 @@ class _savingHistoryState extends State<savingHistory> {
                                                                       .start,
                                                               children: [
                                                                 Text(
-                                                                  "Date :",
+                                                                  // "Date :",
+                                                                  translation(
+                                                                          context)
+                                                                      .date,
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
@@ -333,15 +345,17 @@ class _savingHistoryState extends State<savingHistory> {
                                                           },
                                                           child: Container(
                                                             color: Colors.black,
-                                                            child:
-                                                                const Padding(
+                                                            child: Padding(
                                                               padding:
-                                                                  EdgeInsets
+                                                                  const EdgeInsets
                                                                       .all(15),
                                                               child: Text(
-                                                                "No",
+                                                                // "No",
+                                                                translation(
+                                                                        context)
+                                                                    .no,
                                                                 style:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   color: Colors
                                                                       .white70,
                                                                 ),
@@ -375,12 +389,18 @@ class _savingHistoryState extends State<savingHistory> {
                                                           },
                                                           child: Container(
                                                             color: Colors.black,
-                                                            child: const Padding(
-                                                              padding: EdgeInsets.all(15),
+                                                            child:
+                                                                 Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(15),
                                                               child: Text(
-                                                                "Yes",
-                                                                style: TextStyle(
-                                                                  color: Colors.white,
+                                                                // "Yes",
+                                                                translation(context).yes,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
                                                                 ),
                                                               ),
                                                             ),
@@ -389,9 +409,7 @@ class _savingHistoryState extends State<savingHistory> {
                                                       ],
                                                     ),
                                                   );
-                                                  setState(() {
-                                                    
-                                                  });
+                                                  setState(() {});
                                                 },
                                                 child: Row(
                                                   children: const [

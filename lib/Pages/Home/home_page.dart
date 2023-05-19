@@ -1,11 +1,15 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:personal_finance/Pages/Home/income_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:personal_finance/Pages/outcome/outcome.dart';
+import 'package:personal_finance/classes/language_constants.dart';
+import 'package:personal_finance/provider/locale_provider.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   int id;
@@ -61,6 +65,24 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  checkLang() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? lang = prefs.getInt('language');
+    if (lang == 2) {
+      final provider = Provider.of<LocaleProvider>(context, listen: false);
+      provider.setLocale(const Locale('my'));
+    } else {
+      final provider = Provider.of<LocaleProvider>(context, listen: false);
+      provider.setLocale(const Locale('en'));
+    }
+  }
+
+  @override
+  void initState() {
+    checkLang();
+    super.initState();
   }
 
   @override
@@ -127,9 +149,12 @@ class _HomePageState extends State<HomePage> {
                                                 type: PageTransitionType
                                                     .rightToLeft));
                                       },
-                                      child: const Text(
-                                        "INCOME",
-                                        style: TextStyle(color: Colors.black),
+                                      child: Text(
+                                        // "INCOME",
+                                        translation(context).income,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                        ),
                                       )),
                                 ),
                                 const SizedBox(
@@ -153,9 +178,12 @@ class _HomePageState extends State<HomePage> {
                                                 type: PageTransitionType
                                                     .rightToLeft));
                                       },
-                                      child: const Text(
-                                        "OUTCOME",
-                                        style: TextStyle(color: Colors.black),
+                                      child: Text(
+                                        // "OUTCOME",
+                                        translation(context).outcome,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                        ),
                                       )),
                                 ),
                               ],

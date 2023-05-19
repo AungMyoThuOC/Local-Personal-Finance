@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Database/record_map.dart';
 import 'package:personal_finance/Pages/Outcome/outcome.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 import 'package:personal_finance/common.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
@@ -178,7 +179,8 @@ class _OutAddAndEditRecPageState extends State<OutAddAndEditRecPage> {
           centerTitle: true,
           elevation: 0,
           title: Text(
-            widget.type == -1 ? "New Item" : "Edit Item",
+            // widget.type == -1 ? "New" : "Edit",
+            widget.type == -1 ? "New" : translation(context).edit,
             style: TextStyle(
               color: Colors.black,
               fontFamily: ubuntuFamily,
@@ -292,7 +294,10 @@ class _OutAddAndEditRecPageState extends State<OutAddAndEditRecPage> {
                         ),
                       ),
                       checkOutAmount
-                          ? errorTextWidget("Enter Amount")
+                          ? errorTextWidget(
+                              // "Enter Amount",
+                              translation(context).ent_amo,
+                            )
                           : Container(),
                     ],
                   ),
@@ -408,7 +413,8 @@ class _OutAddAndEditRecPageState extends State<OutAddAndEditRecPage> {
                                   ),
                                 )
                               : Text(
-                                  "Save Item",
+                                  // "Save",
+                                  translation(context).save,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: ubuntuFamily,

@@ -8,6 +8,7 @@ import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Database/record_map.dart';
 import 'package:personal_finance/Database/remaining_map.dart';
 import 'package:personal_finance/Pages/Saving/saving_money_adding_history.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 
 class AddSavingMoney extends StatefulWidget {
   List list;
@@ -137,7 +138,8 @@ class _AddSavingMoneyState extends State<AddSavingMoney> {
                       left: 3,
                     ),
                     child: Text(
-                      "Amount",
+                      // "Amount",
+                      translation(context).amount,
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontWeight: FontWeight.w500,
@@ -193,8 +195,9 @@ class _AddSavingMoneyState extends State<AddSavingMoney> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text(
-                            "Cancel",
+                          child: Text(
+                            // "Cancel",
+                            translation(context).cancel,
                           ),
                         ),
                       ),
@@ -221,8 +224,9 @@ class _AddSavingMoneyState extends State<AddSavingMoney> {
                             elevation: 0,
                             primary: Colors.blue[600],
                           ),
-                          child: const Text(
-                            "Add",
+                          child: Text(
+                            // "Add",
+                            translation(context).add,
                           ),
                         ),
                       ),

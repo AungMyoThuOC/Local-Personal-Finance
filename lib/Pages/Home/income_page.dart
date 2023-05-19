@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, avoid_print, sized_box_for_whitespace
+// ignore_for_file: must_be_immutable, avoid_print, sized_box_for_whitespace, use_build_context_synchronously
 
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Pages/Home/details_page.dart';
 import 'package:personal_finance/Pages/Record/add_and_edit_record_page.dart';
 import 'package:personal_finance/Pages/bottom_bar.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 
 import 'package:personal_finance/common.dart';
 import 'package:intl/intl.dart';
@@ -72,9 +73,12 @@ class _IncomePageState extends State<IncomePage> {
           // backgroundColor: Colors.transparent,
           // centerTitle: false,
           automaticallyImplyLeading: false,
-          title: const Text(
-            "Income",
-            style: TextStyle(color: Colors.black),
+          title: Text(
+            // "Income",
+            translation(context).income,
+            style: const TextStyle(
+              color: Colors.black,
+            ),
           ),
           leading: BackButton(
             color: Colors.black,
@@ -223,18 +227,19 @@ class _IncomePageState extends State<IncomePage> {
                                                 setState(() {});
                                               },
                                               child: Row(
-                                                children: const [
-                                                  Icon(
+                                                children: [
+                                                  const Icon(
                                                     Icons.edit,
                                                     color: Colors.black,
                                                     size: 15,
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 15,
                                                   ),
                                                   Text(
-                                                    "Edit",
-                                                    style: TextStyle(
+                                                    // "Edit",
+                                                    translation(context).edit,
+                                                    style: const TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 15,
                                                     ),
@@ -250,7 +255,9 @@ class _IncomePageState extends State<IncomePage> {
                                                   context: context,
                                                   builder: (_) => AlertDialog(
                                                     title: Text(
-                                                      "Are you sure you want to delete this type?",
+                                                      // "Do you want to delete?",
+                                                      translation(context)
+                                                          .d_y_w_t_d,
                                                       style: TextStyle(
                                                         fontFamily:
                                                             ubuntuFamily,
@@ -269,7 +276,10 @@ class _IncomePageState extends State<IncomePage> {
                                                                     .start,
                                                             children: [
                                                               Text(
-                                                                "Remark : ",
+                                                                // "Remark : ",
+                                                                translation(
+                                                                        context)
+                                                                    .remark,
                                                                 style:
                                                                     TextStyle(
                                                                   fontSize: 15,
@@ -302,7 +312,10 @@ class _IncomePageState extends State<IncomePage> {
                                                                     .start,
                                                             children: [
                                                               Text(
-                                                                "Date : ",
+                                                                // "Date : ",
+                                                                translation(
+                                                                        context)
+                                                                    .date,
                                                                 style:
                                                                     TextStyle(
                                                                   fontSize: 15,
@@ -345,13 +358,17 @@ class _IncomePageState extends State<IncomePage> {
                                                         },
                                                         child: Container(
                                                           color: Colors.black,
-                                                          child: const Padding(
+                                                          child: Padding(
                                                             padding:
-                                                                EdgeInsets.all(
-                                                                    15),
+                                                                const EdgeInsets
+                                                                    .all(15),
                                                             child: Text(
-                                                              "No",
-                                                              style: TextStyle(
+                                                              // "No",
+                                                              translation(
+                                                                      context)
+                                                                  .no,
+                                                              style:
+                                                                  const TextStyle(
                                                                 color: Colors
                                                                     .white70,
                                                               ),
@@ -382,13 +399,17 @@ class _IncomePageState extends State<IncomePage> {
                                                         },
                                                         child: Container(
                                                           color: Colors.black,
-                                                          child: const Padding(
+                                                          child: Padding(
                                                             padding:
-                                                                EdgeInsets.all(
-                                                                    15),
+                                                                const EdgeInsets
+                                                                    .all(15),
                                                             child: Text(
-                                                              "Yes",
-                                                              style: TextStyle(
+                                                              // "Yes",
+                                                              translation(
+                                                                      context)
+                                                                  .yes,
+                                                              style:
+                                                                  const TextStyle(
                                                                 color: Colors
                                                                     .white,
                                                               ),
@@ -402,18 +423,19 @@ class _IncomePageState extends State<IncomePage> {
                                                 setState(() {});
                                               },
                                               child: Row(
-                                                children: const [
-                                                  Icon(
+                                                children: [
+                                                  const Icon(
                                                     Icons.delete,
                                                     color: Colors.black,
                                                     size: 15,
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 15,
                                                   ),
                                                   Text(
-                                                    "Delete",
-                                                    style: TextStyle(
+                                                    // "Delete",
+                                                    translation(context).delete,
+                                                    style: const TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 15,
                                                     ),
@@ -437,6 +459,7 @@ class _IncomePageState extends State<IncomePage> {
                             padding: const EdgeInsets.only(top: 25),
                             child: Text(
                               "No search item",
+                              // translation(context).no_srch_itm,
                               style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 20,
@@ -447,7 +470,8 @@ class _IncomePageState extends State<IncomePage> {
                         : check == true
                             ? Center(
                                 child: Text(
-                                  "No item",
+                                  // "No price has been added.",
+                                  translation(context).no_pric_ha_ben_add,
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: 20,
@@ -562,18 +586,21 @@ class _IncomePageState extends State<IncomePage> {
                                                         setState(() {});
                                                       },
                                                       child: Row(
-                                                        children: const [
-                                                          Icon(
+                                                        children: [
+                                                          const Icon(
                                                             Icons.edit,
                                                             color: Colors.black,
                                                             size: 15,
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 15,
                                                           ),
                                                           Text(
-                                                            "Edit",
-                                                            style: TextStyle(
+                                                            // "Edit",
+                                                            translation(context)
+                                                                .edit,
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 15,
@@ -591,7 +618,10 @@ class _IncomePageState extends State<IncomePage> {
                                                           builder: (_) =>
                                                               AlertDialog(
                                                             title: Text(
-                                                              "Are you sure you want to delete this type?",
+                                                              // "Do you want to delete?",
+                                                              translation(
+                                                                      context)
+                                                                  .d_y_w_t_d,
                                                               style: TextStyle(
                                                                 fontFamily:
                                                                     ubuntuFamily,
@@ -610,7 +640,9 @@ class _IncomePageState extends State<IncomePage> {
                                                                             .start,
                                                                     children: [
                                                                       Text(
-                                                                        "Remark : ",
+                                                                        // "Remark : ",
+                                                                        translation(context)
+                                                                            .remark,
                                                                         style:
                                                                             TextStyle(
                                                                           fontSize:
@@ -646,7 +678,9 @@ class _IncomePageState extends State<IncomePage> {
                                                                             .start,
                                                                     children: [
                                                                       Text(
-                                                                        "Date : ",
+                                                                        // "Date : ",
+                                                                        translation(context)
+                                                                            .date,
                                                                         style:
                                                                             TextStyle(
                                                                           fontSize:
@@ -694,14 +728,17 @@ class _IncomePageState extends State<IncomePage> {
                                                                   color: Colors
                                                                       .black,
                                                                   child:
-                                                                      const Padding(
+                                                                      Padding(
                                                                     padding:
-                                                                        EdgeInsets.all(
+                                                                        const EdgeInsets.all(
                                                                             15),
                                                                     child: Text(
-                                                                      "No",
+                                                                      // "No",
+                                                                      translation(
+                                                                              context)
+                                                                          .no,
                                                                       style:
-                                                                          TextStyle(
+                                                                          const TextStyle(
                                                                         color: Colors
                                                                             .white70,
                                                                       ),
@@ -736,14 +773,17 @@ class _IncomePageState extends State<IncomePage> {
                                                                   color: Colors
                                                                       .black,
                                                                   child:
-                                                                      const Padding(
+                                                                      Padding(
                                                                     padding:
-                                                                        EdgeInsets.all(
+                                                                        const EdgeInsets.all(
                                                                             15),
                                                                     child: Text(
-                                                                      "Yes",
+                                                                      // "Yes",
+                                                                      translation(
+                                                                              context)
+                                                                          .yes,
                                                                       style:
-                                                                          TextStyle(
+                                                                          const TextStyle(
                                                                         color: Colors
                                                                             .white,
                                                                       ),
@@ -757,18 +797,21 @@ class _IncomePageState extends State<IncomePage> {
                                                         setState(() {});
                                                       },
                                                       child: Row(
-                                                        children: const [
-                                                          Icon(
+                                                        children: [
+                                                          const Icon(
                                                             Icons.delete,
                                                             color: Colors.black,
                                                             size: 15,
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 15,
                                                           ),
                                                           Text(
-                                                            "Delete",
-                                                            style: TextStyle(
+                                                            // "Delete",
+                                                            translation(context)
+                                                                .delete,
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 15,

@@ -8,6 +8,7 @@ import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Pages/Saving/saving_list.dart';
 import 'package:personal_finance/Pages/Saving/saving_money_adding.dart';
 import 'package:personal_finance/Pages/Saving/saving_money_adding_history.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 import 'package:personal_finance/common.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -171,7 +172,8 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
           },
         ),
         title: Text(
-          "View Item",
+          // "View",
+          translation(context).view,
           style: TextStyle(
             color: Colors.black,
             fontFamily: ubuntuFamily,
@@ -265,7 +267,8 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                       height: 20,
                     ),
                     _text(
-                      "Date",
+                      // "Date",
+                      translation(context).dat,
                       DateFormat("dd-MM-yyyy").format(
                         DateTime.parse(
                           getSavIndexDashboardList[0]["record_date"],
@@ -273,11 +276,13 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                       ),
                     ),
                     _text(
-                      "Target Name",
+                      // "Target Name",
+                      translation(context).trg_nam,
                       getSavIndexDashboardList[0]["record_remark"],
                     ),
                     _text(
-                      "Amount",
+                      // "Amount",
+                      translation(context).amount,
                       NumberFormat.decimalPattern().format(
                         getSavIndexDashboardList[0]["record_price"],
                       ),
@@ -299,7 +304,8 @@ class _SavingDetailPageState extends State<SavingDetailPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Remaining",
+                                        // "Remaining",
+                                        translation(context).remaining,
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,

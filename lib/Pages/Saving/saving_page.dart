@@ -2,6 +2,7 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:personal_finance/Pages/Saving/saving_list.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 
 class SavingPage extends StatefulWidget {
   int id;
@@ -20,9 +21,10 @@ class _SavingPageState extends State<SavingPage> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text(
-            "Saving",
-            style: TextStyle(
+          title: Text(
+            // "Saving",
+            translation(context).saving,
+            style: const TextStyle(
               color: Colors.black,
             ),
           ),

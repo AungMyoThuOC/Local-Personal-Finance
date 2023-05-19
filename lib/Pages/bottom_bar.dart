@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_finance/Pages/Home/home_page.dart';
 import 'package:personal_finance/Pages/Saving/saving_page.dart';
 import 'package:personal_finance/Pages/Setting/profile_page.dart';
+import 'package:personal_finance/calculator/calcualtor.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({Key? key}) : super(key: key);
@@ -21,7 +22,8 @@ class _BottomBarState extends State<BottomBar> {
     SavingPage(
       id: 1,
     ),
-    const Text("App"),
+    // const Text("Calculator"),
+    const CalculatorPage(),
     ProfilePage(
       id: 1,
     ),
@@ -51,21 +53,25 @@ class _BottomBarState extends State<BottomBar> {
         unselectedItemColor: const Color(0xFF526480),
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(FluentSystemIcons.ic_fluent_home_regular),
-              activeIcon: Icon(FluentSystemIcons.ic_fluent_home_filled),
-              label: "Home"),
+            icon: Icon(FluentSystemIcons.ic_fluent_home_regular),
+            activeIcon: Icon(FluentSystemIcons.ic_fluent_home_filled),
+            label: "Home",
+          ),
           BottomNavigationBarItem(
-              icon: Icon(FluentSystemIcons.ic_fluent_savings_regular),
-              activeIcon: Icon(FluentSystemIcons.ic_fluent_savings_filled),
-              label: "Saving"),
+            icon: Icon(FluentSystemIcons.ic_fluent_savings_regular),
+            activeIcon: Icon(FluentSystemIcons.ic_fluent_savings_filled),
+            label: "Saving",
+          ),
           BottomNavigationBarItem(
-              icon: Icon(FluentSystemIcons.ic_fluent_apps_regular),
-              activeIcon: Icon(FluentSystemIcons.ic_fluent_apps_filled),
-              label: "App"),
+            icon: Icon(FluentSystemIcons.ic_fluent_calculator_regular),
+            activeIcon: Icon(FluentSystemIcons.ic_fluent_calculator_filled),
+            label: "Calculator",
+          ),
           BottomNavigationBarItem(
-              icon: Icon(FluentSystemIcons.ic_fluent_settings_regular),
-              activeIcon: Icon(FluentSystemIcons.ic_fluent_settings_filled),
-              label: "Setting"),
+            icon: Icon(FluentSystemIcons.ic_fluent_settings_regular),
+            activeIcon: Icon(FluentSystemIcons.ic_fluent_settings_filled),
+            label: "Setting",
+          ),
         ],
       ),
     );

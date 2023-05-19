@@ -2,16 +2,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:personal_finance/Database/create_database.dart';
 import 'package:personal_finance/Pages/Login/create_acc_page.dart';
 import 'package:personal_finance/Pages/Setting/language.dart';
 import 'package:personal_finance/Pages/Setting/logout_dialog.dart';
-import 'package:personal_finance/Pages/Setting/security.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 import 'package:personal_finance/common.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePage extends StatefulWidget {
   int id;
@@ -53,9 +53,10 @@ class _ProfilePageState extends State<ProfilePage> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.white,
-        title: const Text(
-          "Setting",
-          style: TextStyle(
+        title: Text(
+          // "Setting",
+          translation(context).setting,
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -121,12 +122,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                         width: 10,
                                       ),
                                       Text(
-                                        "Hello ,",
+                                        // "Hello ,",
+                                        // translation(context).hello,
+                                        AppLocalizations.of(context)!.hello,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
                                           fontFamily: ubuntuFamily,
-                                          fontSize: 25,
+                                          fontSize: 10,
                                         ),
                                       )
                                     ],
@@ -175,12 +178,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                           Column(
                                             children: [
                                               Text(
-                                                "Hello, ${getAccountList[0]["name"]}",
+                                                "${translation(context).hello} ${getAccountList[0]["name"]}",
+                                                // ${AppLocalizations.of(context)!.hello}
+                                                // AppLocalizations.of(context)!.hello,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black,
                                                   fontFamily: ubuntuFamily,
-                                                  fontSize: 20,
+                                                  fontSize: 15,
                                                 ),
                                               ),
                                               const SizedBox(
@@ -192,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black,
                                                   fontFamily: ubuntuFamily,
-                                                  fontSize: 20,
+                                                  fontSize: 15,
                                                 ),
                                               )
                                             ],
@@ -237,7 +242,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 20,
                         ),
                         Text(
-                          "Language",
+                          // "Language",
+                          translation(context).language,
                           style: TextStyle(
                             fontSize: 21,
                             fontFamily: ubuntuFamily,
@@ -268,7 +274,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 20,
                         ),
                         Text(
-                          "Reset Data",
+                          // "Reset Data",
+                          translation(context).resetApp,
                           style: TextStyle(
                             fontSize: 21,
                             fontFamily: ubuntuFamily,
@@ -329,8 +336,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     onPressed: () async {
                       final action = await AlertDialogs.yesCalcelDialog(
                         context,
-                        "Logout",
-                        "Are you sure ?",
+                        // "Logout",
+                        translation(context).logout,
+                        // "Do you want to logout?",
+                        translation(context).dywtlo,
                       );
                       if (action == DialogsAction.yes) {
                         setState(
@@ -354,7 +363,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 20,
                         ),
                         Text(
-                          "Logout",
+                          // "Logout",
+                          translation(context).logout,
                           style: TextStyle(
                             fontSize: 21,
                             fontFamily: ubuntuFamily,
@@ -380,19 +390,26 @@ class _ProfilePageState extends State<ProfilePage> {
       barrierDismissible: false, //user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Clear Expense Entries"),
+          title: Text(
+            AppLocalizations.of(context)!.cexpent,
+          ),
+          // const Text("Clear Expense Entries"),
           content: SingleChildScrollView(
             child: ListBody(
-              children: const <Widget>[
-                Text("Do you want to clear all expeense entries?"),
+              children: <Widget>[
+                Text(
+                  // "Do you want to delete all data?"
+                  translation(context).dywtrp,
+                ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text(
-                "Confirm",
-                style: TextStyle(
+              child: Text(
+                // "Confirm",
+                translation(context).com,
+                style: const TextStyle(
                   color: Color(0xFFFF1818),
                   fontWeight: FontWeight.w700,
                 ),
@@ -414,9 +431,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   Navigator.of(context).pop();
                 });
               },
-              child: const Text(
-                "Cancel",
-                style: TextStyle(
+              child: Text(
+                // "Cancel",
+                translation(context).cancel,
+                style: const TextStyle(
                   color: Color(0xFF5463FF),
                   fontWeight: FontWeight.bold,
                 ),

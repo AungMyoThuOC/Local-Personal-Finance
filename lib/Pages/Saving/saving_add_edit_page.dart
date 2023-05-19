@@ -10,6 +10,7 @@ import 'package:personal_finance/Database/record_map.dart';
 import 'package:personal_finance/Pages/Saving/saving_list.dart';
 import 'package:personal_finance/Pages/Saving/saving_page.dart';
 import 'package:personal_finance/Pages/bottom_bar.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 import 'package:personal_finance/common.dart';
 
 class SavingAddEditRecPage extends StatefulWidget {
@@ -132,7 +133,11 @@ class _SavingAddEditRecPageState extends State<SavingAddEditRecPage> {
           centerTitle: true,
           elevation: 0.0,
           title: Text(
-            widget.type == -1 ? "New" : "Edit",
+            widget.type == -1
+                ? "New"
+                :
+                // "Edit",
+                translation(context).edit,
             style: TextStyle(
               color: Colors.black,
               fontFamily: ubuntuFamily,
@@ -230,7 +235,10 @@ class _SavingAddEditRecPageState extends State<SavingAddEditRecPage> {
                         ),
                       ),
                       checkSavtagName
-                          ? errorTextWidget("Enter Target")
+                          ? errorTextWidget(
+                              // "Enter Target"
+                              translation(context).ent_trg,
+                            )
                           : Container(),
                     ],
                   ),
@@ -266,7 +274,10 @@ class _SavingAddEditRecPageState extends State<SavingAddEditRecPage> {
                         ),
                       ),
                       checkSavAmount
-                          ? errorTextWidget("Enter Amount")
+                          ? errorTextWidget(
+                              // "Enter Amount",
+                              translation(context).ent_trg,
+                            )
                           : Container(),
                     ],
                   ),
@@ -325,7 +336,8 @@ class _SavingAddEditRecPageState extends State<SavingAddEditRecPage> {
                                 ),
                               )
                             : Text(
-                                "Save",
+                                // "Save",
+                                translation(context).save,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: ubuntuFamily,

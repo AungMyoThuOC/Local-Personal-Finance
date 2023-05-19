@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:personal_finance/Pages/Login/create_acc_page.dart';
 import 'package:personal_finance/Pages/Login/login_page.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 
 class RegisterOrLoginPage extends StatefulWidget {
   const RegisterOrLoginPage({Key? key}) : super(key: key);
@@ -52,10 +53,11 @@ class _RegisterOrLoginPageState extends State<RegisterOrLoginPage> {
                     // color: const Color.fromARGB(255, 77, 175, 255),
                     color: Colors.black,
                   ),
-                  child: const Center(
+                  child:  Center(
                     child: Text(
-                      "Login",
-                      style: TextStyle(
+                      // "Login",
+                      translation(context).login,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
                       ),

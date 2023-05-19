@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:personal_finance/Pages/bottom_bar.dart';
+import 'package:personal_finance/classes/language_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguagePage extends StatefulWidget {
@@ -22,13 +23,20 @@ class _LanguagePageState extends State<LanguagePage> {
   }
 
   @override
+  void initState() {
+    getLang();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          "Language",
-          style: TextStyle(
+        title: Text(
+          // "Language",
+          translation(context).language,
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -85,7 +93,7 @@ class _LanguagePageState extends State<LanguagePage> {
               value: 2,
               groupValue: selectedLang,
               title: const Text(
-                "Myanmar",
+                "မြန်မာ",
               ),
               onChanged: (value) async {
                 final prefs = await SharedPreferences.getInstance();
